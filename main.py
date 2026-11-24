@@ -1,6 +1,7 @@
 import time
 import sys
-
+import random
+from phantom_route_events import phantomRouteEvents
 
 
 
@@ -27,6 +28,26 @@ class player:
             else:
                 printCool("\nUnable to pay that out right now")
                 return False 
+
+def minigameTypeWord(stringToType):
+    printCool("\n Your goal is to type the following string EXACTLY the same within the next 10 seconds to successfully hack the system\n")
+    duration = 10
+    print("line to write: " + stringToType)
+    input("Press enter to begin.")
+    start_time = time.perf_counter()
+    input = input("\nGo! >")
+    elapsed = time.perf_counter() - start_time
+
+    if elapsed > duration:
+        printCool("You failed.")
+        return False
+    elif input == stringToType:
+        printCool("You Succeed. Well done.")
+        return True
+    else:
+        printCool("You made a typo, you failed.")
+        return False
+    
 
 
 p1 = None
@@ -75,8 +96,18 @@ def setup():
 
 
 def eventPhantom():
-    printCool("randommly chooses event here")
+    events = phantomRouteEvents(p1, printCool, minigameTypeWord)
+    if p1.year == 1:
+        events.event1()
+        p1.year += 1
+    if p1.year == 2:
+        printCool("Event two here")
+    if p1.year == 3:
+        printCool
 
+def eventCriminal():
+    printCool("Add criminal event class and event segments here")
+        
 
 
 
@@ -86,10 +117,10 @@ def main():
 
     while True:
         if currentPage == "Homepage":
-            printCool("It is currently your number" + str(p1.year) + " year. Once you turn 60 you die.\n")
-            printCool("To enter settings type the number (1)")
-            printCool("To advance to the next year type (2)")
-            printCool("To end the game type (3)")
+            printCool("It is currently your number " + str(p1.year) + " year. Once you turn 60 you die.\n")
+            printCool("To enter settings type the number (1)  \n")
+            printCool("To advance to the next year type (2)  \n")
+            printCool("To end the game type (3)  \n")
             currentInput = input("This is the homepage, what do you want to do?")
             if currentInput == "1":
                 printCool("For speed of text please input a number from 1-100\nSmaller number means faster text.")
@@ -106,7 +137,14 @@ def main():
                 printCool("Text speed set to " + str(speed) + ".")
 
             if currentPage == "2":
-                printCool("") # add event moving on code here
+                if p1.type == "Phantom":
+                    eventPhantom()
+                if p1.type == "Rich":
+                    printCool("Rich event here")
+                if p1.type == "Average":
+                    printCool("Average event here")
+                if p1.type == "Criminal":
+                    printCool("Criminal event here")
 
             if currentInput == "3":
                 currentPage = "End"
@@ -114,18 +152,18 @@ def main():
         if currentPage == "End":
             printCool("This system is terminating as it has run it's course.\n")
             printCool("You ended with the following stats: \n")
-            printCool(p1)
+            print(vars(p1))
             insert = input("Terminate program? ")
-            if insert.strip().lower() == "yes" or "y" or "ye":
-                sys.exit(0)
-            if insert.strip().lower() == "no" or "n":
-                timeForMessage = 0.1
-                printCool("too bad.")
-                sys.exit(0)
-            if insert.strip().lower() != "yes" or "no":
+            choice = insert.strip().lower()
+            if choice in ("yes", "y", "ye"):
+                printCool("Terminating...")
+            elif choice in ("no", "n"):
                 timeForMessage = 0.05
-                printCool("I didnt understand. oh well.")
-                sys.exit(0)
+                printCool("Too bad.")
+            else:
+                printCool("I didn't understand. Terminating anyway.")
+            time.sleep(3)
+            sys.exit(0)
 
 
 opening()
