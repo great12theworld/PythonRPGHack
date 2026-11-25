@@ -32,22 +32,45 @@ class player:
 def minigameTypeWord(stringToType):
     printCool("\n Your goal is to type the following string EXACTLY the same within the next 10 seconds to successfully hack the system\n")
     duration = 10
-    print("line to write: " + stringToType)
-    input("Press enter to begin.")
+    print("line to write: '" + stringToType + "'  ")
+    x = input("\nPress enter to begin.") #its not meant to be accessed computa'
     start_time = time.perf_counter()
-    input = input("\nGo! >")
+    y = input("\nGo! >")
     elapsed = time.perf_counter() - start_time
 
     if elapsed > duration:
         printCool("You failed.")
         return False
-    elif input == stringToType:
+    elif y == stringToType:
         printCool("You Succeed. Well done.")
         return True
     else:
         printCool("You made a typo, you failed.")
         return False
-    
+
+def minigameGuessTheNumber(guessCount):
+    printCool("Your goal is to guess a number 1-100, you have " + str(guessCount) + " tries.\n")
+    number = random.randint(1,100)
+    current = guessCount -1
+    while True:
+        guess = input("Pick a number 1-100\n")
+        if current == 0:
+            printCool("You failed to guess in the number of tries provided.\n")
+            break
+        if current > 0:
+            if int(guess) == number:
+                printCool("You got the number!\n")
+                break
+            elif int(guess) > number:
+                printCool("Too high\n")
+                current = current -1
+            elif int(guess) < number:
+                printCool("Too low\n")
+                current = current -1
+
+
+
+
 
 
 p1 = None
@@ -100,10 +123,10 @@ def eventPhantom():
     if p1.year == 1:
         events.event1()
         p1.year += 1
-    if p1.year == 2:
+    elif p1.year == 2:
         printCool("Event two here")
-    if p1.year == 3:
-        printCool
+    elif p1.year == 3:
+        printCool("Event three here")
 
 def eventCriminal():
     printCool("Add criminal event class and event segments here")
@@ -136,7 +159,7 @@ def main():
                 timeForMessage = speed / 100
                 printCool("Text speed set to " + str(speed) + ".")
 
-            if currentPage == "2":
+            if currentInput == "2":
                 if p1.type == "Phantom":
                     eventPhantom()
                 if p1.type == "Rich":
@@ -158,7 +181,7 @@ def main():
             if choice in ("yes", "y", "ye"):
                 printCool("Terminating...")
             elif choice in ("no", "n"):
-                timeForMessage = 0.05
+                timeForMessage = 0.07
                 printCool("Too bad.")
             else:
                 printCool("I didn't understand. Terminating anyway.")
