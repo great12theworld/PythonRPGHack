@@ -37,8 +37,15 @@ class phantomRouteEvents:
         self.print_cool("You are met with a tiny child.\n")
         self.print_cool("He looks at you longingly.\n")
         self.print_cool("As if he wants something from you.\n")
-        self.print_cool("(1) Give him a few chips [- 20 chips]")
-        self.print_cool("(2) Dont give him anything and continue on with your day")
-        self.print_cool("(3) Tell him to get a job and yell at him")
+        self.print_cool("(1) Give him a few chips [- 20 chips]\n")
+        self.print_cool("(2) Dont give him anything and continue on with your day\n")
+        self.print_cool("(3) Tell him to get a job and yell at him\n")
         while True:
-            choice = input("")
+            choice = input("(1), (2), or (3)")
+            if choice == "1":
+                self.player.money -= 20
+                self.print_cool("\n You give him 20 chips, he becomes very excited and happy.\n He runs off into a back alley")
+            if choice == "2":
+                self.print_cool("")
+                
+

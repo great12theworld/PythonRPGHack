@@ -110,7 +110,7 @@ def setup():
             p1 = player(100, 100, -40, 1, 0, 10, "Rich")
             break
         elif pathway == "4":
-            p1 = player(300, 100, 0, 0, 5, 0, "Phantom")
+            p1 = player(3000, 100, 0, 0, 5, 0, "Phantom")
             break
         else:
             printCool("Please enter a number from 1 to 4.\n")
